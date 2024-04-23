@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document
+    </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .block {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .square {
+            width: 100%;
+            padding-top: 100%;
+            /* Устанавливаем высоту равной ширине для создания квадрата */
+            position: relative;
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="block">
+            <div class="square">
+                <div class="content">
+                    <!-- Содержимое первого блока -->
+                    <h2>Первый блок</h2>
+                    <p>Содержимое первого блока здесь.</p>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="square">
+                <div class="content">
+                    <!-- Содержимое второго блока -->
+                    <h2>Второй блок</h2>
+                    <p>Содержимое второго блока здесь.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('forest.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+
+
+
+        .block-content {
+            width: 250px;
+
+            /*box-shadow: 8px 8px 12px 0 rgba(255, 255, 255, 0.4);*/
+            position: absolute;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: 200px;
+            left: 20px;
+
+        }
+
+        .block-bar {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .block-info {
+            display: flow-root;
+            width: 100%;
+            background-color: white;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+
+
+
+        .title-text {
+            color: white;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: capitalize;
+            margin: 2px 12px 3px;
+
+        }
+
+        .close-char {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: right;
+            color: white;
+            margin: 0 10px;
+
+        }
+
+        .close-place {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .close-place:hover {
+            background-color: rgba(248, 55, 55, 0.7);
+        }
+
+        .name-text {
+            font-family: "Lora", serif;
+            font-weight: 600;
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 10px;
+
+        }
+
+        .descript-text {
+            font-family: "Montserrat", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .img-block {
+            display: block;
+            margin: auto;
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+        
+        .menu-bar {
+            width: 90%;
+            display: flex;
+            margin: auto;
+            backdrop-filter: sepia();
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            overflow: hidden;
+            text-align: center;
+            padding: 10px 0;
+
+        }
+
+        .flex-div {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .general-name {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 900;
+            font-size: 25px;
+            color: white;
+            letter-spacing: -6px;
+            margin: 8px 40px;
+            text-align: left;
+        }
+
+        .general-bar-links {
+            color: white;
+            margin: auto;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .general-bar-links:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-bar">
+        <span class="general-name">WW1</span>
+        <div class="flex-div">
+            <a class="general-bar-links" href="">ad</a>
+            <a class="general-bar-links" href="">ad</a>
+            <a class="general-bar-links" href="">ad</a>
+        </div>
+
+    </div>
+    <div class="block-content" id="draggableBlock" draggable="true" ondragstart="return false;">
+        <div class="block-bar">
+            <span class="title-text">Titile</span>
+            <div class="close-place">
+                <span class="close-char">×</span>
+            </div>
+
+        </div>
+        <div class="block-info">
+            <h2 class="name-text">Битва при Марне</h2>
+            <img src="forest.jpg" alt="" class="img-block">
+            <p class="descript-text">Второй метод требует намного меньшего количества CSS, но не имеет хорошей поддержки
+                браузером.</p>
+        </div>
+
+
+    </div>
+    <script>
+        draggableBlock.onmousedown = function (event) {
+            if (event.layerY <= 20) {
+                let shiftX = event.clientX - draggableBlock.getBoundingClientRect().left;
+                let shiftY = event.clientY - draggableBlock.getBoundingClientRect().top;
+
+                //console.log(event)
+
+                moveAt(event.pageX, event.pageY);
+
+                // переносит блок на координаты (pageX, pageY),
+                // дополнительно учитывая изначальный сдвиг относительно указателя мыши
+                function moveAt(pageX, pageY) {
+                    draggableBlock.style.left = pageX - shiftX + 'px';
+                    draggableBlock.style.top = pageY - shiftY + 'px';
+                }
+
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+
+                // передвигаем блок при событии mousemove
+                document.addEventListener('mousemove', onMouseMove);
+
+                // отпустить блок, удалить ненужные обработчики
+                draggableBlock.onmouseup = function () {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    draggableBlock.onmouseup = null;
+                };
+            }
+
+
+        };
+
+
+
+    </script>
+
+</body>
+
+</html>

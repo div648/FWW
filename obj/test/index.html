@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+
+<body style="background-color: rgb(14, 16, 31);">
+
+    <script>
+
+        let entitys = [
+            { 'id': 1, 'references': [] },
+            { 'id': 2, 'references': [1] },
+            { 'id': 3, 'references': [1, 2] },
+            { 'id': 4, 'references': [1, 3] },
+        ];
+
+
+
+
+        function findAllConn(id, depth = 2) {
+            //let routes = [];
+            let temporary_routes = find_secondary_conn(id, true);
+            //console.log(temporary_routes);
+            let i = 0
+            let skip_transition = false;
+            while (i < temporary_routes.length) {
+                for (let j = temporary_routes[i].length - 1; j < depth; j++) {
+                    if (temporary_routes[i][temporary_routes[i].length - 1] == -1) break;
+                    secondary_conn = find_secondary_conn(temporary_routes[i][j]);
+                    if (secondary_conn.length > 1) {
+                        for (let copy = 0; copy < secondary_conn.length; copy++) {
+                            temporary_routes.push([...temporary_routes[i], secondary_conn[copy]]);
+                        }
+                        temporary_routes.splice(i, 1);
+                        skip_transition = true;
+                        break; // Ошибка изза брейка и перехода на сл этап!!! не нужно i++;
+                    } else {
+                        temporary_routes[i].push(...secondary_conn);
+                    }
+                }
+                
+                if (skip_transition) skip_transition = false;
+                else i++;
+                
+            }
+
+            return temporary_routes;
+        }
+
+        function find_secondary_conn(id, first = false) {
+            let secondary_conn = [-1];
+            let newIndex = findSerialById(id);
+
+            if (entitys[newIndex]['references'].length > 0) secondary_conn = entitys[newIndex]['references'];
+
+            //if (secondary_conn[0] != -1) console.log(secondary_conn);
+
+            if (first) return createOneToMany(newIndex, secondary_conn);
+            else return secondary_conn;
+        }
+
+        function createOneToMany(index, arr) {
+            let tree = [];
+            for (let i = 0; i < arr.length; i++) {
+                tree.push([entitys[index]['id'], arr[i]]);
+            }
+            return tree;
+        }
+
+        function findSerialById(idEntity) {
+            for (let i = 0; i < entitys.length; i++) {
+                if (entitys[i]['id'] == idEntity) return i;
+            }
+            return -1;
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

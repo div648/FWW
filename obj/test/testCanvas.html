@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <script>
+
+        // Получаем ссылку на элемент Canvas
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+        // Начальные координаты объекта
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+
+        // Параметры спирали
+        let a = 0; // Угол
+        let b = 2; // Шаг
+        let c = 10; // Размер
+
+        let arr = []
+        for (let i = 0; i < 100; i++) {
+            let randX = getRandomInt(400, 500);
+            let randY = getRandomInt(200, 300);
+
+            let dx = randX - 450;
+            let dy = randY - 250;
+
+            // Вычисляем угол между объектом и центром вращения
+            let angle =
+                arr.push({
+                    x: randX,
+                    y: randY,
+                    c: Math.sqrt(Math.pow(randX - 450, 2) + Math.pow(randY - 250, 2)),
+                    a: Math.atan2(dy, dx)
+                });
+        }
+
+        // Функция анимации
+        function animate() {
+            // Очищаем холст
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < arr.length; i++) {
+                let newX = arr[i].x + arr[i].c * Math.cos(arr[i].a);
+                let newY = arr[i].y + arr[i].c * Math.sin(arr[i].a);
+                ctx.beginPath();
+                ctx.arc(newX, newY, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = "blue";
+                ctx.fill();
+                arr[i].x = newX;
+                arr[i].y = newY;
+                arr[i].a += b * Math.PI / 180;
+                //arr[i].c -= 0.05;
+
+            }
+
+
+
+            // Рисуем объект (в данном случае круг)
+
+
+            // Обновляем координаты
+
+
+            // Увеличиваем угол для следующего кадра
+
+            // Запускаем следующий кадр анимации
+            requestAnimationFrame(animate);
+        }
+
+        // Запускаем анимацию
+        animate();
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+</body>
+
+</html>
