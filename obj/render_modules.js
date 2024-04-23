@@ -28,12 +28,12 @@ function animate_particles() {
         for (let i = 0; i < particles.length; i++) {
             ctx.beginPath();
             ctx.arc(particles[i]['x'], particles[i]['y'], 1, 0, 2 * Math.PI);
-            ctx.fillStyle = 'rgba(255, 255, 255, ' + mapNumber(particles[i]['ttl'], 0, particle_ttl, 0, 0.5) + ')';
+            ctx.fillStyle = 'rgba(255, 255, 255, ' + mapNumber(particles[i]['ttl'], 0, particle_ttl, 0, 0.8) + ')';
             ctx.fill();
             particles[i]['x'] += 0.5 - getRandomInt(0, 10) / 10;
             particles[i]['y'] += 0.5 - getRandomInt(0, 10) / 10;
             particles[i]['ttl'] -= 1;
-            if (particles[i]['ttl'] <= 0) {
+            if (particles[i]['ttl'] <= 100) {
                 particles.splice(i, 1);
             }
         }
@@ -49,7 +49,7 @@ function animate_windows_particles() {
     }
 
     for (let i = 0; i < particles_fw.length; i++) {
-        ctx.fillStyle = 'rgba(255, 255, 255, ' + mapNumber(particles_fw[i]['ttl'], 0, particle_fw_ttl, 0, 0.4) + ')';
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + mapNumber(particles_fw[i]['ttl'], 0, particle_fw_ttl, 0, 0.5) + ')';
         ctx.beginPath();
         ctx.arc(particles_fw[i]['x'], particles_fw[i]['y'], 2, 0, 2 * Math.PI);
         ctx.fill();

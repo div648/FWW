@@ -249,7 +249,6 @@ function draggableHandler(event) {
 
         function onMouseMove(event) {
             moveAt(event.pageX, event.pageY);
-            console.log(event)
         }
 
         // передвигаем блок при событии mousemove

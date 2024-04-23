@@ -28,7 +28,7 @@ setInterval(() => {
         }
 
         if (accumulated_error >= particle_obj.length) {
-            console.log('errors: ' + accumulated_error)
+            //console.log('errors: ' + accumulated_error)
             particle_render_on = false;
             particle_obj = [];
             render_node = -1;
