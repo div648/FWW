@@ -33,7 +33,6 @@ function eventProcessing() {
 
 
 
-
 function draw_links() {
     for (let i = 0; i < allEvents.length; i++) {
         ctx.shadowColor = COLOR_shadowLink;
@@ -41,15 +40,7 @@ function draw_links() {
         ctx.lineWidth = 2;
 
         for (let j = 0; j < allEvents[i]['references'].length; j++) {
-            /*let controlPointX1 = allEvents[i]['x'] + (allEvents[allEvents[i]['references'][j]]['x'] - allEvents[i]['x']) * 0.75;
-            let controlPointY1 = allEvents[i]['y'];
-            let controlPointX2 = allEvents[allEvents[i]['references'][j]]['x'] - (allEvents[allEvents[i]['references'][j]]['x'] - allEvents[i]['x']) * 0.75;
-            let controlPointY2 = allEvents[allEvents[i]['references'][j]]['y'];
 
-            ctx.beginPath();
-            ctx.moveTo(allEvents[i]['x'], allEvents[i]['y']);
-            ctx.bezierCurveTo(controlPointX1, controlPointY1, controlPointX2, controlPointY2, allEvents[allEvents[i]['references'][j]]['x'], allEvents[allEvents[i]['references'][j]]['y']);
-            ctx.stroke();*/
             for (let gap = 0; gap < step; gap++) {
                 for (let ii = 0; ii < numGen; ii++) {
                     let cord = interpolatePoint(allEvents[i]['x'], allEvents[i]['y'], allEvents[allEvents[i]['references'][j]]['x'], allEvents[allEvents[i]['references'][j]]['y'], gap / step);
@@ -67,8 +58,6 @@ function draw_links() {
     }
 
 }
-
-
 
 
 function draw_obj() {
@@ -217,17 +206,17 @@ function delInfoBlock(index) {
 
     particle_animate_on = true;
     el.animate(
-        { opacity: [1, 0], scale: [1, 0.6] }, // начальное и конечное значения для прозрачности
-        { duration: 200, easing: 'ease-in' } // длительность анимации и тип анимации (легкость)
+        { opacity: [1, 0], scale: [1, 0.6] }, 
+        { duration: 200, easing: 'ease-in' } 
     ).onfinish = function () {
-        // После завершения анимации удаляем элемент
+        
         el.remove();
     };
 }
 
 
 function draggableHandler(event) {
-    //console.log(event)
+    
     draggableBlock = event.target.parentNode;
     if (event.layerY <= 20) {
         let shiftX = event.clientX - draggableBlock.getBoundingClientRect().left;
@@ -236,8 +225,8 @@ function draggableHandler(event) {
         draggableBlock.style.zIndex = 1000;
         moveAt(event.pageX, event.pageY);
 
-        // переносит блок на координаты (pageX, pageY),
-        // дополнительно учитывая изначальный сдвиг относительно указателя мыши
+        
+        
         function moveAt(pageX, pageY) {
             
             if (pageX - shiftX > 0 && pageY - shiftY > 0) {
@@ -251,10 +240,10 @@ function draggableHandler(event) {
             moveAt(event.pageX, event.pageY);
         }
 
-        // передвигаем блок при событии mousemove
+        
         document.addEventListener('mousemove', onMouseMove);
 
-        // отпустить блок, удалить ненужные обработчики
+        
         draggableBlock.onmouseup = function () {
             document.removeEventListener('mousemove', onMouseMove);
             draggableBlock.style.zIndex = 'auto';
